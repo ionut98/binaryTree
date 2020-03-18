@@ -1,7 +1,7 @@
-const readNodesFromFile = require('./fileUtils');
+const readNodesFromFile = require("./fileUtils");
 const fileName = process.argv[2];
 
-const createNode = (nodeNumber, data, leftChild, rightChild) => ({
+const createNode = (data, leftChild, rightChild) => ({
   data,
   leftChild,
   rightChild
@@ -22,24 +22,20 @@ const createBinaryTree = nodesFromFileList => {
     // take reference of the parent of the actual node
     let parentNode = binaryTree.nodes[parentNodeNumber];
 
-    parentNodeNumber !== '0'
-      ? childType === 's'
-        ? parentNode
-          ? (parentNode[leftChild] = nodeNumber)
-          : (parentNode = createNode(data, nodeNumber, null))
-        : parentNode
-        ? (parentNode[rightChild] = nodeNumber)
-        : (parentNode = createNode(data, null, nodeNumber))
-      : (binaryTree.root = nodeNumber);
-
-    if (parentNode === '0') {
+    if (parentNodeNumber === "0") {
       binaryTree.root = nodeNumber;
     } else {
-      if (childType === 's') {
+      if (childType === "s") {
         if (!parentNode) {
           parentNode = createNode(data, nodeNumber, null);
         } else {
-          parentNode[leftChild] = nodeNumber;
+          parentNode.leftChild = nodeNumber;
+        }
+      } else if (childType === "d") {
+        if (!parentNode) {
+          parentNode = createNode(data, null, nodeNumber);
+        } else {
+          parentNode.rightChild = nodeNumber;
         }
       }
     }
