@@ -1,5 +1,5 @@
-const fs = require('fs');
-const readLine = require('readline');
+const fs = require("fs");
+const readLine = require("readline");
 
 // folosit pentru a citi linie cu linie din fisier
 const readNodesFromFile = async fileName => {
@@ -13,7 +13,7 @@ const readNodesFromFile = async fileName => {
   const nodesFromFileList = [];
 
   for await (const line of lines) {
-    const nodeDetails = line.split(',');
+    const nodeDetails = line.split(",");
     nodesFromFileList.push({
       nodeNumber: nodeDetails[0],
       parentNodeNumber: nodeDetails[1],

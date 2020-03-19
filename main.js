@@ -16,26 +16,27 @@ const createBinaryTree = nodesFromFileList => {
   nodesFromFileList.forEach(node => {
     const { nodeNumber, parentNodeNumber, childType, data } = node;
 
-    // create new node in tree
-    binaryTree.nodes[node.nodeNumber] = createNode(data, null, null);
+    // create new node in tree if did not exist, if exists only change data
+    binaryTree.nodes[nodeNumber] === undefined
+      ? (binaryTree.nodes[nodeNumber] = createNode(data, null, null))
+      : (binaryTree.nodes[nodeNumber].data = data);
 
-    // take reference of the parent of the actual node
-    let parentNode = binaryTree.nodes[parentNodeNumber];
-
+    // assign actual node's parent the corresponding child
+    // if parent node does not exist, we create it
     if (parentNodeNumber === "0") {
       binaryTree.root = nodeNumber;
     } else {
       if (childType === "s") {
-        if (!parentNode) {
-          parentNode = createNode(data, nodeNumber, null);
+        if (!binaryTree.nodes[parentNodeNumber]) {
+          binaryTree.nodes[parentNodeNumber] = createNode("", nodeNumber, null);
         } else {
-          parentNode.leftChild = nodeNumber;
+          binaryTree.nodes[parentNodeNumber].leftChild = nodeNumber;
         }
       } else if (childType === "d") {
-        if (!parentNode) {
-          parentNode = createNode(data, null, nodeNumber);
+        if (!binaryTree.nodes[parentNodeNumber]) {
+          binaryTree.nodes[parentNodeNumber] = createNode("", null, nodeNumber);
         } else {
-          parentNode.rightChild = nodeNumber;
+          binaryTree.nodes[parentNodeNumber].rightChild = nodeNumber;
         }
       }
     }
@@ -44,9 +45,26 @@ const createBinaryTree = nodesFromFileList => {
   return binaryTree;
 };
 
+const inOrder = (node, binaryTree) => {
+  if (node === null) {
+    return;
+  }
+
+  inOrder(binaryTree["nodes"][node].leftChild, binaryTree);
+
+  console.log(binaryTree["nodes"][node].data);
+
+  inOrder(binaryTree["nodes"][node].rightChild, binaryTree);
+};
+
 const main = async () => {
   const nodesFromFileList = await readNodesFromFile(fileName);
-  console.log(createBinaryTree(nodesFromFileList));
+  const binaryTree = createBinaryTree(nodesFromFileList);
+  if (binaryTree.root) {
+    inOrder(binaryTree.root, binaryTree);
+    return;
+  }
+  console.log("Datele introduse nu sunt valide");
 };
 
 main();
