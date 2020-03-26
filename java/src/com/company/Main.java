@@ -68,7 +68,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ArrayList<NodeFromFile> nodesFromFiles = FileUtils.readNodesFromFile("src/noduri.txt");
+        ArrayList<NodeFromFile> nodesFromFiles = FileUtils.readNodesFromFile(args[0]);
         BinaryTree binaryTree = createBinaryTree(nodesFromFiles);
         if(binaryTree.getRoot() == null) {
             System.out.println("Datele introduse nu sunt valide!");

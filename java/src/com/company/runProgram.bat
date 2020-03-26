@@ -1,4 +1,4 @@
 @echo off
 
-javac Main.java
+javac *.java
 java Main.java %1
