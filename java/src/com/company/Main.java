@@ -1,6 +1,9 @@
 package com.company;
 
 import java.util.ArrayList;
+import com.company.BinaryTree;
+import com.company.NodeFromFile;
+import com.company.FileUtils;
 
 public class Main {
 

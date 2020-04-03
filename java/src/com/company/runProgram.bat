@@ -1,4 +1,4 @@
 @echo off
 
 javac *.java
-java Main.java %1
+java com.company.Main %1
