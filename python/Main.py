@@ -44,7 +44,6 @@ def in_order(node, binary_tree):
 
 def main():
     nodes_from_file_list = read_nodes_from_file(sys.argv[1])
-    print(nodes_from_file_list)
     binary_tree = create_binary_tree(nodes_from_file_list)
     if binary_tree.root is not None:
         in_order(binary_tree.root, binary_tree)
